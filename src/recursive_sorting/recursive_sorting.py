@@ -4,25 +4,29 @@ def merge(arrA, arrB):
     merged_arr = [0] * elements
     # TO-DO
     for i in range(elements):
-        if i == elements-1 and not len(arrB):
-            merged_arr[i] = arrA[0]
-        elif i == elements-1 and not len(arrA):
+        if len(arrA) == 0:
             merged_arr[i] = arrB[0]
+            arrB = arrB[1:]
+        elif len(arrB) == 0:
+            merged_arr[i] = arrA[0]
+            arrA = arrA[1:]
+        elif arrA[0] <= arrB[0]:
+            merged_arr[i] = arrA[0]
+            arrA = arrA[1:]
         else:
-            if arrA[0] <= arrB[0]:
-                merged_arr[i] = arrA[0]
-                arrA = arrA[1:]
-            else:
-                merged_arr[i] = arrB[0]
-                arrB = arrB[1:]
+            merged_arr[i] = arrB[0]
+            arrB = arrB[1:]
     return merged_arr
 
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort(arr):
     # TO-DO
-    arr = [[i] for i in arr]
-
+    if len(arr) > 1:
+        middle = len(arr) // 2
+        left = merge_sort(arr[:middle])
+        right = merge_sort(arr[middle:])
+        arr = merge(left, right)
     return arr
 
 
@@ -33,14 +37,14 @@ def merge_in_place(arr, start, mid, end):
     return arr
 
 
-def merge_sort_in_place(arr, l, r): 
+def merge_sort_in_place(arr, l, r):
     # TO-DO
 
     return arr
 
 
 # STRETCH: implement the Timsort function below
-# hint: check out 
+# hint: check out
 # https://github.com/python/cpython/blob/master/Objects/listsort.txt
 def timsort(arr):
 
